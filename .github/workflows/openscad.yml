@@ -5,8 +5,8 @@ name: openscad stl generation
 on:
   push:
     branches: [ main ]
-    
-    
+
+
 
 jobs:
 
@@ -39,7 +39,8 @@ jobs:
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
-                
+        submodules: true
+
 
 
     - name: Cache stl
@@ -49,9 +50,9 @@ jobs:
         path: cache
         key: pegboard-cache-${{ github.sha }}
         restore-keys: pegboard-cache
-        
 
-            
+
+
     - name: check environment before
       run: |
         date
@@ -66,8 +67,8 @@ jobs:
         ls -lR
         date
 
-                
-    
+
+
     - name: wth
       run: |
         date
