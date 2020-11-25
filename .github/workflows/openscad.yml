@@ -71,7 +71,7 @@ jobs:
     - name: wth
       run: |
         date
-        make all
+        make openscad.all
         date
 
     - name: check environment after
