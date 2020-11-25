@@ -1,0 +1,3 @@
+[submodule "makelib"]
+	path = makelib
+	url = git@gitlab.com:michaeldallen/makelib.git
