@@ -1,0 +1,91 @@
+# This is a basic workflow that is manually triggered
+
+name: openscad stl generation
+
+on:
+  push:
+    branches: [ main ]
+    
+    
+
+jobs:
+
+  compile_openscad_files:
+
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: configure apt
+      run: |
+        date
+        sudo apt-get update
+        date
+
+    - name: install support packages
+      run: |
+        date
+        sudo apt-get install --assume-yes \
+        bsdmainutils \
+        ca-certificates \
+        git \
+        git-restore-mtime \
+        make \
+        openscad \
+        xvfb \
+        #
+        date
+
+    - name: checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+                
+
+
+    - name: Cache stl
+      id: cache-stl
+      uses: actions/cache@v2
+      with:
+        path: cache
+        key: pegboard-cache-${{ github.sha }}
+        restore-keys: pegboard-cache
+        
+
+            
+    - name: check environment before
+      run: |
+        date
+        env | sort
+        date
+        pwd
+        find * -type f | sort
+        ls -lR
+        date
+        /usr/lib/git-core/git-restore-mtime
+        find * -type f | sort
+        ls -lR
+        date
+
+                
+    
+    - name: wth
+      run: |
+        date
+        make all
+        date
+
+    - name: check environment after
+      run: |
+        date
+        pwd
+        find * -type f | sort
+        ls -lR
+        date
+
+
+    - name: save artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: stl
+        path: artifacts
+
