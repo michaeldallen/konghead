@@ -1,0 +1,5 @@
+*.stl
+*.png
+*.deps
+*~
+.DS_Store
